@@ -1,8 +1,19 @@
+import axios from 'axios'
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/ChicagoAlex')
+  .then(res =>{
+    // console.log(res.data.public_repos);
+  })
+  .catch(err => {
+    // console.error(err)
+  })
+  .finally(() => {
+    // console.log('Its working!')
+  })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -49,6 +60,51 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function cardMaker({ imageURL, name, username, location, gitURL, followCount, followingCount, bio }){
+  const gitCardDiv = document.createElement('div');
+  const image = document.createElement('img');
+  const cardInfoDiv = document.createElement('div');
+  const nameH3 = document.createElement('h3');
+  const usernameP = document.createElement('p');
+  const locationP = document.createElement('p')
+  const profileP = document.createElement('p');
+  const gitLink = document.createElement('a');
+  const followersP = document.createElement('p');
+  const followingP = document.createElement('p');
+  const bioP = document.createElement('p');
+
+  gitCardDiv.classList.add('card');
+  cardInfoDiv.classList.add('card-info');
+  nameH3.classList.add('h3');
+  usernameP.classList.add('username');
+
+  gitCardDiv.appendChild(image);
+  gitCardDiv.appendChild(cardInfoDiv);
+  cardInfoDiv.appendChild(nameH3);
+  cardInfoDiv.appendChild(usernameP);
+  cardInfoDiv.appendChild(locationP);
+  cardInfoDiv.appendChild(profileP);
+  profileP.appendChild(gitLink);
+  cardInfoDiv.appendChild(followersP);
+  cardInfoDiv.appendChild(followingP);
+  cardInfoDiv.appendChild(bioP);
+
+  image.src = imageURL;
+  nameH3.textContent = name;
+  usernameP.textContent = username;
+  locationP.textContent = `Location: ${location}`
+  profileP.textContent = 'Profile: ';
+  gitLink.href = gitURL;
+  gitLink.textContent = gitURL;
+  followersP.textContent = `Followers: ${followCount}`;
+  followingP.textContent = `Following: ${followingCount}`;
+  bioP.textContent = `Bio: ${bio}`;
+
+  return gitCardDiv
+}
+
+console.log(cardMaker({imageURL: 'image.jpg', name: 'Alex', username: 'MyUsername', location: 'Chicago', gitURL: 'blah.com', followCount: 'six', followingCount: 'seven', bio: 'This is my bio'}))
 
 /*
   List of LS Instructors Github username's:
